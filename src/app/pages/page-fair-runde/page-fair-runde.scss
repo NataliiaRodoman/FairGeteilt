@@ -1,0 +1,133 @@
+@import '_variables'; 
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;        
+  padding: 40px 24px;
+  box-sizing: border-box;
+  background-color: $gelb-hell;
+  font-family: system-ui, -apple-system, sans-serif;
+  text-align: center;
+  gap: 40px;
+}
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  
+  .logo-image {
+    height: 80px;          
+    object-fit: contain;
+    border-radius: 20px;
+  }
+}
+
+.image {
+  display: flex;
+  padding: 30px;
+
+  img {
+      border-radius: 20px;
+  }
+}
+
+.content-area {              
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   
+  height: 100%;
+  max-width: 400px;
+  gap: 30px;
+
+  h2 {
+    font-size: 32px;
+    color: $grun-dunkel;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 8px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: $grun-dunkel;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid $grun;
+    border-radius: 20px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    background-color: $white;
+    color: #333333;
+
+    &:focus {
+      border-color: $grun-dunkel;
+    }
+  }
+}
+
+.add-person-box {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+
+  input {
+    flex: 1;
+  }
+}
+
+.add-person-btn {
+  background-color: $grun;
+  color: $grun-dunkel;
+  border: 1px solid $grun-dunkel;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $grun-dunkel;
+    color: $gelb;
+  }
+}
+
+.participants-list {
+  width: 100%;
+  padding: 0;
+  margin: 10px 0 0 0;
+  list-style: none;
+  text-align: left;
+
+  li {
+    padding: 8px 12px;
+    background-color: $white;
+    border: 1px solid $grun;
+    margin-bottom: 6px;
+    border-radius: 20px;
+    font-size: 14px;
+    color: $gray;
+  }
+}
+
+.action-area {
+  width: 100%;
+  max-width: 320px;          
+  
+  app-custom-button-component {
+    display: block;         
+    width: 100%;
+  }
+}

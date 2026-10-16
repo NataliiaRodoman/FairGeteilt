@@ -1,0 +1,20 @@
+
+@import 'variables'; 
+
+.custom-btn {
+  width: 100%; 
+  background-color: $grun; 
+  color: $gelb;                   
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease; 
+}
+
+.custom-btn:hover {
+  background-color: $grun-dunkel;    
+  color: $white;           
+}

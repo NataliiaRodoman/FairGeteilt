@@ -1,0 +1,70 @@
+@import '_variables'; 
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;        
+  padding: 60px 30px 200px 30px;
+  box-sizing: border-box;
+  background-color: $gelb-hell;
+  font-family: system-ui, -apple-system, sans-serif;
+  text-align: center;
+}
+
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  
+  .logo-image {
+    height: 80px;          
+    object-fit: contain;
+    border-radius: 20px;
+  }
+}
+
+.image {
+  display: flex;
+  padding: 30px;
+
+  img {
+      border-radius: 20px;
+  }
+}
+.content-area {                  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   
+  max-width: 500px;
+
+  h2 {
+    font-size: 24px;
+    color: $grun-dunkel;
+    margin: 0 0 8px 0;
+  }
+
+  h1 {
+    font-size: 42px;
+    color: $gelb;
+    margin: 0 0 16px 0;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 16px;
+    color: $grun;
+    margin: 0;
+  }
+}
+
+.action-area {
+  width: 100%;
+  max-width: 320px;          
+  
+  app-custom-button-component {
+    display: block;         
+    width: 100%;
+  }
+}
+

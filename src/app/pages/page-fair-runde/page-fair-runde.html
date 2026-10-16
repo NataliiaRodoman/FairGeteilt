@@ -1,0 +1,63 @@
+<div class="page-container">
+  <app-custom-button-component 
+        [label]="'← Zurück'" 
+        (btnClick)="goBack()">
+    </app-custom-button-component>
+
+ <div class="logo-area">
+    <a href="#" class="logo">
+        <img src="logo.png" alt="FairRunde" class="logo-image">
+    </a>
+     <div class="image"><img src="farbe.png" alt="FairRunde"></div>
+</div>
+
+  <div class="content-area form-container">
+    <h2>Neue FairRunde</h2>
+
+    <div class="input-group">
+      <label for="eventName">Name des Events</label>
+      <input 
+        type="text" 
+        id="eventName" 
+        [(ngModel)]="eventName" 
+        placeholder="Wochenendtrip, Abendessen...">
+    </div>
+
+    <div class="input-group">
+      <label for="participantName">Teilnehmer</label>
+      <div class="add-person-box">
+        <input 
+          type="text" 
+          id="participantName" 
+          [(ngModel)]="currentParticipant" 
+          placeholder="Name des Teilnehmers">
+
+        <app-custom-button-component 
+          [label]="'+ Person hinzufügen'" 
+          (btnClick)="addParticipant()">
+        </app-custom-button-component>
+      </div>
+    </div>
+
+    @if (participants.length > 0) {
+         <ul class="participants-list">
+        @for (name of participants; track $index; let i = $index) {
+          <li>
+            @if (i === 0) {
+              Du - {{ name }}
+            } @else {
+              {{ i + 1 }}. Teilnehmer - {{ name }}
+            }
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="action-area">
+    <app-custom-button-component 
+      [label]="'FairRunde anlegen'" 
+      (btnClick)="createRound()">
+    </app-custom-button-component>
+  </div>
+</div>
