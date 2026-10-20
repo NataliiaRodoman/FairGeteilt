@@ -1,63 +1,69 @@
 <div class="page-container">
-  <app-custom-button-component 
-        [label]="'← Zurück'" 
-        (btnClick)="goBack()">
-    </app-custom-button-component>
-
- <div class="logo-area">
+  <div class="logo-area">
     <a href="#" class="logo">
         <img src="logo.png" alt="FairRunde" class="logo-image">
     </a>
      <div class="image"><img src="farbe.png" alt="FairRunde"></div>
-</div>
+  </div>
 
-  <div class="content-area form-container">
-    <h2>Neue FairRunde</h2>
+  <div class="form-container">
+    <h1>Erstellt eure Gruppe</h1>
+    <p class="beschreibung">
+     Gebt euer Gruppe einen Namen und fügt alle Teilnehmer hinzu.
+    </p>
 
-    <div class="input-group">
-      <label for="eventName">Name des Events</label>
-      <input 
-        type="text" 
-        id="eventName" 
-        [(ngModel)]="eventName" 
-        placeholder="Wochenendtrip, Abendessen...">
-    </div>
-
-    <div class="input-group">
-      <label for="participantName">Teilnehmer</label>
-      <div class="add-person-box">
-        <input 
-          type="text" 
-          id="participantName" 
-          [(ngModel)]="currentParticipant" 
-          placeholder="Name des Teilnehmers">
-
-        <app-custom-button-component 
-          [label]="'+ Person hinzufügen'" 
-          (btnClick)="addParticipant()">
-        </app-custom-button-component>
-      </div>
-    </div>
-
-    @if (participants.length > 0) {
-         <ul class="participants-list">
-        @for (name of participants; track $index; let i = $index) {
-          <li>
-            @if (i === 0) {
-              Du - {{ name }}
-            } @else {
-              {{ i + 1 }}. Teilnehmer - {{ name }}
-            }
-          </li>
-        }
-      </ul>
+    <label for="gruppenName">Gruppenname</label>
+    <input 
+      id="gruppenName" 
+      [(ngModel)]="gruppenName" 
+      placeholder="Wochenendtrip, Abendessen..."
+    />
+    @if (gruppenName.length === 0) {
+      <p class="hinweis">Noch keine Gruppenname hinzügefügt.</p>
     }
+    <h2>Wer ist dabei?</h2>
+  
+    <div class="eingabe">
+      <input 
+        id="participantName" 
+        [(ngModel)]="neuerName" 
+        placeholder="Name eingeben"
+        (keyup.enter)="personHinzufuegen()"
+      />
+      <app-custom-button-component 
+        [label]="'+ Person hinzufügen'" 
+        (btnClick)="personHinzufuegen()">
+      </app-custom-button-component>
+    </div>
+
+    @if (teilnahmer.length < 2) {
+      <p class="hinweis">Fügt mindestens zwei Personen hinzu.</p>
+    }
+
+    <div class="personen">
+      @for (person of teilnahmer; track person.id;) {
+        <div class="person">
+          <span class="avatar">
+            {{person.name.charAt(0).toLocaleUpperCase()}}
+          </span>
+          <span>
+            {{person.name}}
+          </span>
+          <button type="button" class="entfernen" (click)="personEntvernen(person.id)">
+            x
+          </button>
+        </div>
+      }
+    </div>
   </div>
 
   <div class="action-area">
     <app-custom-button-component 
       [label]="'FairRunde anlegen'" 
-      (btnClick)="createRound()">
+      [disabled]="gruppenName.length === 0 || teilnahmer.length < 2"
+      (btnClick)="weiter()"
+    >
     </app-custom-button-component>
-  </div>
-</div>
+  </div> 
+</div> 
+

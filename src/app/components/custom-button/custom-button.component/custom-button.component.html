@@ -1,1 +1,7 @@
-<button class="custom-btn" (click)="onClick()">{{label}}</button>
+<button 
+  class="custom-btn" 
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+{{label}}
+</button>

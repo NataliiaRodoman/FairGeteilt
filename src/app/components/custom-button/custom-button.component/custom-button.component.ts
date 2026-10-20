@@ -10,9 +10,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class CustomButtonComponent {
 
   @Input() label: string = '';
+  @Input() disabled: boolean = false;
   @Output() btnClick = new EventEmitter<void>();
 
   onClick() {
-    this.btnClick.emit();
+    if (!this.disabled) {
+      this.btnClick.emit();
+    }
   }
 }

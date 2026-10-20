@@ -1,0 +1,79 @@
+<div class="page-container">
+    <h1>Erfasst eure Ausgaben</h1>
+    <p class="beschreibung">
+        Tragt eure gemeinsamen Ausgaben ein und wählt aus, wer bezahlt hat.
+    </p>
+
+    <section class="karte">
+        <h2>Neue Ausgabe</h2>
+
+        <label for="beschreibung">Was wurde gekauft?</label>
+        <input id="beschreibung"
+        [(ngModel)]="beschreibung"
+        placeholder="Abendessen...">
+
+        <label for="betrag">Betrag €</label>
+        <input id="betrag"
+        [(ngModel)]="betrag"
+        type="number"
+        min="1"
+        max="1"
+        placeholder="0">
+
+        <label for="bezahltVon">Wer hat bezahlt?</label>
+        <select 
+            id="bezahltVon"
+            [(ngModel)]="bezahltVon">
+            @for (person of teilnahmer; track person.id) {
+              <option [value]="person.id">
+                  {{person.name}}
+              </option>
+            }
+        </select>
+        <div class="action-area">
+           <app-custom-button-component 
+            [label]="'+ Ausgabe hinzufügen'" 
+            (btnClick)="ausgabeHinzufuegen()">
+          </app-custom-button-component>
+        </div>
+    </section>
+
+    <section class="liste">
+        <h2>Alle Ausgeben</h2>
+        
+        @if (ausgaben.length === 0) {
+            <p class="hinweis">Noch keine Ausgaben hinzügefügt.</p>
+        }
+        @for(ausgabe of ausgaben; track ausgabe.id){
+            <div class="ausgabe">
+                <div class="position">
+                    <strong>{{ausgabe.beschreibung}}</strong>
+                    <p>Bezahlt von: {{nameVon(ausgabe.bezahltVon)}}</p>
+                </div>
+            <strong>{{ausgabe.betrag.toFixed(2)}}</strong>
+             <button type="button" class="entfernen" (click)="ausgabeEntfernen(ausgabe.id)">
+            x
+          </button>
+        </div>
+        }
+    </section>
+
+    <div class="summe">
+        <span>Gesamtausgaben</span>
+        <strong>{{gesamt.toFixed(2)}} €</strong>
+    </div>
+
+    <div class="action-area">
+        <app-custom-button-component 
+          [label]="'← Zurück'" 
+          (btnClick)="zuruk()"
+        >
+        </app-custom-button-component> 
+
+       <app-custom-button-component 
+         [label]="'Weiter →'" 
+         (btnClick)="weiter()"
+        >
+        </app-custom-button-component>
+    </div>
+</div>

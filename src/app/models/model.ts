@@ -1,5 +1,5 @@
 export interface FairRunde {
-    id: number;
+    id: string;
     eventName: string;
     teilnehmer: number[];
     currency: string;
@@ -7,17 +7,15 @@ export interface FairRunde {
 }
 
 export interface Person {
-    id: number;
+    id: string;
     name: string;
-    farbAvatar: string;
-    mailAdresse: string;
+    farbAvatar?: string;
+    mailAdresse?: string;
 }
 
-export interface Aufgabe {
-    id: number;
+export interface Ausgabe {
+    id: string;
     beschreibung: string;
     betrag: number;
-    bezahltVon: number;
-    aufgeteiltAuf: number[];
-    date: string;
+    bezahltVon: string;
 }
