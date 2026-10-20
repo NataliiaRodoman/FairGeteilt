@@ -21,22 +21,29 @@
     height: 80px;          
     object-fit: contain;
     border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
   }
 }
 
 .image {
   display: flex;
-  padding: 30px;
+  padding: 10px;
 
   img {
-      border-radius: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
   }
 }
 .content-area {                  
   display: flex;
   flex-direction: column;
   justify-content: center;   
-  max-width: 500px;
+  max-width: 600px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  background: $grun-hell2;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
 
   h2 {
     font-size: 24px;
@@ -61,7 +68,8 @@
 .action-area {
   width: 100%;
   max-width: 320px;          
-  
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
   app-custom-button-component {
     display: block;         
     width: 100%;

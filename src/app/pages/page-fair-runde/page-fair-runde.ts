@@ -18,6 +18,7 @@ export class PageFairRunde {
   neuerName: string = '';
   gruppenName: string = history.state?.gruppenName ?? '';
   teilnahmer: Person[] = history.state?.teilnahmer ?? [];
+  ausgaben: any[] = history.state?.ausgaben ?? []; 
 
   personHinzufuegen() {
     const name = this.neuerName.trim();
@@ -27,10 +28,10 @@ export class PageFairRunde {
 
     if (bereitsVorhanden) return;
 
-    this.teilnahmer.push({
+    this.teilnahmer = [...this.teilnahmer,{
       id: crypto.randomUUID(),
       name,
-    });
+    }];
 
     this.neuerName ='';
   }
@@ -44,6 +45,7 @@ export class PageFairRunde {
       state: {
         gruppenName: this.gruppenName,
         teilnahmer: this.teilnahmer,
+        ausgaben: this.ausgaben
       }
     });
   }

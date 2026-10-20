@@ -6,23 +6,55 @@
   background-color: $grun; 
   color: $gelb;                   
   border: none;
-  padding: 12px 24px;
+  padding: 12px 28px;
   font-size: 16px;
   font-weight: 600;
-  border-radius: 20px;
+  border-radius: 24px;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease; 
+  box-shadow: 0 4px 14px rgba($grun, 0.25), 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+
 
   &:not(:disabled):hover {
     background-color: $grun-dunkel;    
     color: $white;           
+    box-shadow: 0 6px 20px rgba($grun-dunkel, 0.35);
+    transform: translateY(-1px); 
+  }
+
+  &:not(:disabled):active {
+    transform: translateY(1px); 
+    box-shadow: 0 2px 6px rgba($grun-dunkel, 0.2);
   }
 
   &:disabled {
     background-color: $gray-hell;
     color: $gray;
-    opacity: 0,6;
+    opacity: 0.6;
     pointer-events: none;
     cursor: not-allowed;
+    transform: none;     
+  }
+}
+
+.entfernen {
+  margin-left: auto;
+  background: $koralle-hell;
+  font-size: 14px;
+  font-weight: bold;
+  color: $koralle;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $koralle;
+    color: $white;
+    transform: scale(1.05);
   }
 }

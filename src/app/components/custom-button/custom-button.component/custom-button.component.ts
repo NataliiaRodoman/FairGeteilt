@@ -11,6 +11,8 @@ export class CustomButtonComponent {
 
   @Input() label: string = '';
   @Input() disabled: boolean = false;
+  @Input() buttonClass: string = 'custom-btn';
+ 
   @Output() btnClick = new EventEmitter<void>();
 
   onClick() {

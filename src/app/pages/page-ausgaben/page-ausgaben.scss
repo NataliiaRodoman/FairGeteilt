@@ -33,6 +33,7 @@ h2{
 
 .hinweis {
   color:  $koralle;
+  font-size: 14px;
 }
 
 .karte{
@@ -40,11 +41,14 @@ h2{
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: $white;
+  background: $grun-hell2;
   border: 1px solid $grun-hell;
   padding: 20px;
-  border-radius: 14px;
+  border-radius: 24px;
   min-width: 500px;
+  border: 1px solid rgba($grun-hell, 0.5);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+  
 }
 
 label {
@@ -69,19 +73,26 @@ input, select {
       border-color: $grun-dunkel;
     }
 }
+
 select, ::picker(select) {
   appearance: base-select !important;
 }
+
 ::picker(select) {
   background-color: $white;
   outline: none;
   border: 1px solid $gelb-hell;
   border-radius: 20px;
   padding: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); 
+  margin-top: 4px;        
+  transform-origin: top center; 
+  top: anchor(bottom);      
 }
-select {
+
+select {    
     cursor: pointer;
-    
+
     option {
     padding: 10px 15px;
     background-color: $white;
@@ -109,25 +120,22 @@ select {
   justify-content: space-between;
 }
 
-.entfernen {
-  margin-left: auto;
-  background: $grun-hell2;
-  font-size: 18px;
-  color: $grun-dunkel;
-  border-radius: 20%;
-  border: 1px solid $grun-hell;
-}
-
 .summe {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 20px;
   margin-top: 24px;
-  padding: 20px;
+  padding: 16px 20px;
   border-radius: 20px;
   background: $grun-hell2; 
-  border: 1px solid $grun-hell;
+  border: 1px solid rgba($grun-hell, 0.5);
   font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
 }
 
 .hinzufuegen, .weiter{
@@ -149,6 +157,7 @@ select {
 
 .ausgabe{
   display: flex;  
+  justify-content: space-between;
   gap: 12px;
   margin-top: 10px;
   background: $white;
@@ -156,12 +165,22 @@ select {
   padding: 20px;
   border-radius: 20px;
   min-width: 500px;
-}
+  border: 1px solid rgba($grun-hell, 0.4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+  transition: transform 0.2s, box-shadow 0.2s;
 
-.ausgabe p {
-  margin: 6px 0 0;
-  color: $gelb;
-  font-size: 13px;
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: $gelb;
+    font-size: 13px;
+  }
+  
 }
 
 .action-area {

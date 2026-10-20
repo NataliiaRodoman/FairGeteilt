@@ -11,7 +11,9 @@
         <input id="beschreibung"
         [(ngModel)]="beschreibung"
         placeholder="Abendessen...">
-
+        @if (beschreibung.length === 0) {
+            <p class="hinweis">Noch keine Beschreibung hinzügefügt!</p>
+        }
         <label for="betrag">Betrag €</label>
         <input id="betrag"
         [(ngModel)]="betrag"
@@ -19,7 +21,9 @@
         min="1"
         max="1"
         placeholder="0">
-
+        @if (betrag === null || betrag <= 0 ) {
+            <p class="hinweis">Noch kein Betrag hinzügefügt!</p>
+        }
         <label for="bezahltVon">Wer hat bezahlt?</label>
         <select 
             id="bezahltVon"
@@ -33,16 +37,17 @@
         <div class="action-area">
            <app-custom-button-component 
             [label]="'+ Ausgabe hinzufügen'" 
+            [disabled]="beschreibung.length === 0 || (betrag ?? 0) <= 0 "
             (btnClick)="ausgabeHinzufuegen()">
           </app-custom-button-component>
         </div>
     </section>
 
     <section class="liste">
-        <h2>Alle Ausgeben</h2>
+        <h2>Alle Ausgaben</h2>
         
         @if (ausgaben.length === 0) {
-            <p class="hinweis">Noch keine Ausgaben hinzügefügt.</p>
+            <p class="hinweis">Noch keine Ausgaben hinzügefügt!</p>
         }
         @for(ausgabe of ausgaben; track ausgabe.id){
             <div class="ausgabe">
@@ -50,10 +55,13 @@
                     <strong>{{ausgabe.beschreibung}}</strong>
                     <p>Bezahlt von: {{nameVon(ausgabe.bezahltVon)}}</p>
                 </div>
-            <strong>{{ausgabe.betrag.toFixed(2)}}</strong>
-             <button type="button" class="entfernen" (click)="ausgabeEntfernen(ausgabe.id)">
-            x
-          </button>
+            <strong>{{ausgabe.betrag.toFixed(2)}} €</strong>
+            <app-custom-button-component
+              [label]="'x'"
+              buttonClass="entfernen"
+              (btnClick)="ausgabeEntfernen(ausgabe.id)"
+            >
+            </app-custom-button-component>
         </div>
         }
     </section>

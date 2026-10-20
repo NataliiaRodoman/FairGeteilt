@@ -19,7 +19,7 @@
       placeholder="Wochenendtrip, Abendessen..."
     />
     @if (gruppenName.length === 0) {
-      <p class="hinweis">Noch keine Gruppenname hinzügefügt.</p>
+      <p class="hinweis">Noch keine Gruppenname hinzügefügt!</p>
     }
     <h2>Wer ist dabei?</h2>
   
@@ -37,21 +37,24 @@
     </div>
 
     @if (teilnahmer.length < 2) {
-      <p class="hinweis">Fügt mindestens zwei Personen hinzu.</p>
+      <p class="hinweis">Fügt mindestens zwei Personen hinzu!</p>
     }
 
     <div class="personen">
-      @for (person of teilnahmer; track person.id;) {
+      @for (person of teilnahmer; track person.id; let i = $index) {
         <div class="person">
-          <span class="avatar">
+          <span class="avatar" [ngClass]="'color-' + (i % 5)">
             {{person.name.charAt(0).toLocaleUpperCase()}}
           </span>
           <span>
             {{person.name}}
           </span>
-          <button type="button" class="entfernen" (click)="personEntvernen(person.id)">
-            x
-          </button>
+          <app-custom-button-component
+            [label]="'x'"
+            buttonClass="entfernen"
+            (btnClick)="personEntvernen(person.id)"
+          >
+          </app-custom-button-component>
         </div>
       }
     </div>
