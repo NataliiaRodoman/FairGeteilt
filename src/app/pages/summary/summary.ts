@@ -36,9 +36,11 @@ export class Summary {
 
   get abrechnung(): {von: string; an: string; bertrag: number}[]{
     const anzahl = this.teilnahmer.length;
+
     if (anzahl < 2 || this.ausgaben.length === 0){
       return [];
     }
+    
     const gesamtCent = this.ausgaben.reduce(
       (summe,ausgabe) => summe + Math.round(Number(ausgabe.betrag)*100),
       0,
@@ -49,6 +51,7 @@ export class Summary {
 
     this.teilnahmer.forEach((person,index) => {
       const anteil = grundAnteil + (index < restCent ? 1:0);
+
       salden.set(person.id,-anteil);
     })
 
@@ -57,6 +60,7 @@ export class Summary {
 
       if (payer === undefined) continue;
       const betragCent = Math.round(Number(ausgabe.betrag)*100);
+
       salden.set(ausgabe.bezahltVon, payer + betragCent);
     }
 
@@ -93,7 +97,6 @@ export class Summary {
     return ergebnis;
   }
 
-
   nameVon(id: string): string{
     const person = this.teilnahmer.find((p)=> p.id === id);
     return person ? person.name : 'Unbekannt';
@@ -104,7 +107,6 @@ export class Summary {
   }
 
   weiter() {
-
     localStorage.removeItem('gruppenName');
     localStorage.removeItem('teilnahmer');
     localStorage.removeItem('ausgaben');

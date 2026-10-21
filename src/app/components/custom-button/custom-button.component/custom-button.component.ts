@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, input, output } from '@angular/core';
 
 @Component({
   imports: [],
@@ -8,15 +8,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './custom-button.component.html',
 })
 export class CustomButtonComponent {
+  readonly label = input<string>('');
+  readonly disabled = input<boolean>(false);
+  readonly buttonClass = input<string>('custom-btn');
 
-  @Input() label: string = '';
-  @Input() disabled: boolean = false;
-  @Input() buttonClass: string = 'custom-btn';
- 
-  @Output() btnClick = new EventEmitter<void>();
+  readonly btnClick = output<void>();
 
   onClick() {
-    if (!this.disabled) {
+    if (!this.disabled()) {
       this.btnClick.emit();
     }
   }

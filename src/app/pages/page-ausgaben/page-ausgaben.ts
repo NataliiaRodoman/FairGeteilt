@@ -18,10 +18,11 @@ export class PageAusgaben {
 
   gruppenName: string = localStorage.getItem('gruppenName') ?? '';
   teilnahmer: Person[] = JSON.parse(localStorage.getItem('teilnahmer') ?? '[]');
+  ausgaben: Ausgabe[] =JSON.parse(localStorage.getItem('ausgaben') ?? '[]');
+  
   beschreibung = '';
   betrag: number | null = null;
   bezahltVon = this.teilnahmer[0]?.id ?? '';
-  ausgaben: Ausgabe[] =JSON.parse(localStorage.getItem('ausgaben') ?? '[]');
 
   get gesamt(): number {
     return this.ausgaben.reduce((summe,ausgabe) => summe + ausgabe.betrag, 0);
