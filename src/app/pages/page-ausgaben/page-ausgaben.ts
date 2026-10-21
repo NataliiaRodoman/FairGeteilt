@@ -4,9 +4,10 @@ import { Ausgabe, Person } from '../../models/model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../../components/custom-button/custom-button.component/custom-button.component';
+import { Avatar } from '../../components/avatar/avatar';
 
 @Component({
-  imports: [CommonModule,FormsModule, CustomButtonComponent],
+  imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar],
   selector: 'app-page-ausgaben',
   styleUrl: './page-ausgaben.scss',
   templateUrl: './page-ausgaben.html',

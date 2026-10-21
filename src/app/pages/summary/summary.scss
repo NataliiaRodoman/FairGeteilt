@@ -95,27 +95,6 @@ h2{
   }
 }
 
-.avatar {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: $grun-hell2;
-  color: $grun-dunkel;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); 
-  border: 3px solid $white; 
-
-  &.color-0 { background: #e8f5e9; color: #2e7d32; }
-  &.color-1 { background: #e3f2fd; color: #1e88e5; } 
-  &.color-2 { background: #fff3e0; color: #ef6c00; } 
-  &.color-3 { background: #fce4ec; color: #c2185b; } 
-  &.color-4 { background: #f3e5f5; color: #7b1fa2; } 
-}
-
-  
   .party {
     display: flex;
     flex-direction: column;

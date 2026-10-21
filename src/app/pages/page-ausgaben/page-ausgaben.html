@@ -51,18 +51,22 @@
         }
         @for(ausgabe of ausgaben; track ausgabe.id){
             <div class="ausgabe">
-                <div class="position">
-                    <strong>{{ausgabe.beschreibung}}</strong>
-                    <p>Bezahlt von: {{nameVon(ausgabe.bezahltVon)}}</p>
-                </div>
-            <strong>{{ausgabe.betrag.toFixed(2)}} €</strong>
-            <app-custom-button-component
-              [label]="'x'"
-              buttonClass="entfernen"
-              (btnClick)="ausgabeEntfernen(ausgabe.id)"
-            >
-            </app-custom-button-component>
-        </div>
+                <strong>{{ausgabe.beschreibung}}</strong>
+                <p>Bezahlt von: </p>
+                <avatar-component class="avatar"
+                    [name]="nameVon(ausgabe.bezahltVon)"
+                    [teilnahmer]="teilnahmer"
+                >
+                </avatar-component>
+                <strong>{{nameVon(ausgabe.bezahltVon)}}</strong>
+                <strong>{{ausgabe.betrag.toFixed(2)}} €</strong>
+                <app-custom-button-component
+                [label]="'x'"
+                buttonClass="entfernen"
+                (btnClick)="ausgabeEntfernen(ausgabe.id)"
+                >
+                </app-custom-button-component>
+            </div>
         }
     </section>
 

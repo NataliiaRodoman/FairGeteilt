@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../../components/custom-button/custom-button.component/custom-button.component';
 import { Router } from '@angular/router';
 import { Ausgabe, Person } from '../../models/model';
+import { Avatar } from '../../components/avatar/avatar';
 
 @Component({
-  imports: [CommonModule,FormsModule, CustomButtonComponent],
+  imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar],
   selector: 'app-summary',
   styleUrl: './summary.scss',
   templateUrl: './summary.html',
@@ -96,11 +97,6 @@ export class Summary {
   nameVon(id: string): string{
     const person = this.teilnahmer.find((p)=> p.id === id);
     return person ? person.name : 'Unbekannt';
-  }
-
-  farbeVon(name: string): string {
-    const person = this.teilnahmer.find(p => p.name === name);
-    return person?.farbAvatar ?? 'color-0';
   }
 
   zuruk() {

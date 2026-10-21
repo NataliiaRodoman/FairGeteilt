@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { Person } from '../../models/model';
 import { CommonModule } from '@angular/common';
 import { CustomButtonComponent } from '../../components/custom-button/custom-button.component/custom-button.component';
+import { Avatar } from '../../components/avatar/avatar';
 
 @Component({
-  imports: [CommonModule, FormsModule, CustomButtonComponent],
+  imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar],
   standalone: true,
   selector: 'app-page-fair-runde',
   styleUrl: './page-fair-runde.scss',

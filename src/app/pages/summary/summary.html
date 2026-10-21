@@ -23,9 +23,14 @@
             @for (zahlung of abrechnung; track $index) {
                 <div class="ausgabe">
                     <div class="party">
-                    <span class="avatar" [ngClass]="farbeVon(zahlung.von)">
+                        <avatar-component class="avatar"
+                            [name]="zahlung.von"
+                            [teilnahmer]="teilnahmer"
+                        >
+                        </avatar-component>
+                    <!-- <span class="avatar" [ngClass]="farbeVon(zahlung.von)">
                          {{ zahlung.von.charAt(0).toLocaleUpperCase() }}
-                    </span>
+                    </span> -->
                     <strong class="name">{{ zahlung.von }}</strong>
                     </div>
 
@@ -36,9 +41,14 @@
                     </div>
 
                     <div class="party">
-                    <span class="avatar" [ngClass]="farbeVon(zahlung.an)">
+                    <avatar-component class="avatar"
+                        [name]="zahlung.an"
+                        [teilnahmer]="teilnahmer"
+                    >
+                    </avatar-component>
+                    <!-- <span class="avatar" [ngClass]="farbeVon(zahlung.an)">
                             {{ zahlung.an.charAt(0).toLocaleUpperCase() }}
-                    </span>
+                    </span> -->
                     <strong class="name">{{ zahlung.an }}</strong>
                     </div>
                 </div>

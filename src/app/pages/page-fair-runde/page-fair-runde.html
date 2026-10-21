@@ -43,10 +43,14 @@
     <div class="personen">
       @for (person of teilnahmer; track person.id; let i = $index) {
         <div class="person">
-          <span class="avatar" [ngClass]="person.farbAvatar">
-            {{person.name.charAt(0).toLocaleUpperCase()}}
-          </span>
+          <avatar-component class="avatar"
+            [name]="person.name"
+            [teilnahmer]="teilnahmer"
+          >
+          </avatar-component>
+  
           <strong class="name">{{ person.name }}</strong>
+          
           <app-custom-button-component
             [label]="'x'"
             buttonClass="entfernen"
