@@ -16,12 +16,12 @@ import { Avatar } from '../../components/avatar/avatar';
 export class PageAusgaben {
   private router = inject(Router);
 
-  gruppenName: string = history.state?.gruppenName ?? '';
-  teilnahmer: Person[] = history.state?.teilnahmer ?? [];
+  gruppenName: string = localStorage.getItem('gruppenName') ?? '';
+  teilnahmer: Person[] = JSON.parse(localStorage.getItem('teilnahmer') ?? '[]');
   beschreibung = '';
   betrag: number | null = null;
   bezahltVon = this.teilnahmer[0]?.id ?? '';
-  ausgaben: Ausgabe[] =history.state?.ausgaben ?? [];
+  ausgaben: Ausgabe[] =JSON.parse(localStorage.getItem('ausgaben') ?? '[]');
 
   get gesamt(): number {
     return this.ausgaben.reduce((summe,ausgabe) => summe + ausgabe.betrag, 0);
@@ -42,6 +42,8 @@ export class PageAusgaben {
       bezahltVon: this.bezahltVon,
     })
 
+    localStorage.setItem('ausgaben', JSON.stringify(this.ausgaben));
+
     this.beschreibung = '';
     this.betrag = null;
   }
@@ -52,24 +54,14 @@ export class PageAusgaben {
 
   ausgabeEntfernen(id: string) {
     this.ausgaben = this.ausgaben.filter((ausgabe) => ausgabe.id !== id);
+    localStorage.setItem('ausgaben', JSON.stringify(this.ausgaben));
   }
+
   zuruk() {
-    this.router.navigate(['/neue-runde'],{
-      state: {
-        gruppenName: this.gruppenName,
-        teilnahmer: this.teilnahmer,
-        ausgaben: this.ausgaben,
-      },
-    });
+    this.router.navigate(['/neue-runde']);
   }
 
   weiter() {
-    this.router.navigate(['/summary'],{
-      state: {
-        gruppenName: this.gruppenName,
-        teilnahmer: this.teilnahmer,
-        ausgaben: this.ausgaben,
-      },
-    })
+    this.router.navigate(['/summary']);
   }
 }

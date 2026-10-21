@@ -17,19 +17,20 @@ import { Avatar } from '../../components/avatar/avatar';
 export class PageFairRunde {
   private router = inject(Router);
   neuerName: string = '';
-  gruppenName: string = history.state?.gruppenName ?? '';
-  teilnahmer: Person[] = history.state?.teilnahmer ?? [];
-  ausgaben: any[] = history.state?.ausgaben ?? []; 
+  gruppenName: string = localStorage.getItem('gruppenName') ?? '';
+  teilnahmer: Person[] = JSON.parse(localStorage.getItem('teilnahmer') ?? '[]');
+  ausgaben: any[] = JSON.parse(localStorage.getItem('ausgaben') ?? '[]'); 
 
   personHinzufuegen() {
     const name = this.neuerName.trim();
+
     if (!name) return;
 
     const bereitsVorhanden = this.teilnahmer.some((person)=> person.name.toLocaleLowerCase() === name.toLocaleLowerCase(),);
 
     if (bereitsVorhanden) return;
 
-     const farbIndex = this.teilnahmer.length % 5;
+    const farbIndex = this.teilnahmer.length % 5;
 
     this.teilnahmer = [
       ...this.teilnahmer,
@@ -39,20 +40,20 @@ export class PageFairRunde {
         farbAvatar: `color-${farbIndex}`
     }];
 
+    localStorage.setItem('teilnahmer', JSON.stringify(this.teilnahmer));
+    localStorage.setItem('gruppenName', this.gruppenName);
+
     this.neuerName ='';
   }
 
   personEntvernen(id: string) {
     this.teilnahmer = this.teilnahmer.filter((person => person.id !== id));
+
+    localStorage.setItem('teilnahmer',JSON.stringify(this.teilnahmer));
   }
 
   weiter(){
-    this.router.navigate(['/ausgaben'], {
-      state: {
-        gruppenName: this.gruppenName,
-        teilnahmer: this.teilnahmer,
-        ausgaben: this.ausgaben
-      }
-    });
+    localStorage.setItem('gruppenName', this.gruppenName);
+    this.router.navigate(['/ausgaben']);
   }
 }

@@ -16,9 +16,9 @@ export class Summary {
 
   private router = inject(Router);
 
-  gruppenName: string = history.state?.gruppenName ?? '';
-  teilnahmer: Person[] = history.state?.teilnahmer ?? [];
-  ausgaben: Ausgabe[] =history.state?.ausgaben ?? [];
+  gruppenName: string = localStorage.getItem('gruppenName') ?? '';
+  teilnahmer: Person[] = JSON.parse(localStorage.getItem('teilnahmer') ?? '[]');
+  ausgaben: Ausgabe[] = JSON.parse(localStorage.getItem('ausgaben') ?? '[]');
 
   get gesamt(): number {
     const cent = this.ausgaben.reduce(
@@ -88,7 +88,7 @@ export class Summary {
       glaeubiger[j].cent -= cent;
 
       if (schuldner[i].cent === 0) i++;
-      if (glaeubiger[j].cent === 0) i++;
+      if (glaeubiger[j].cent === 0) j++;
     }
     return ergebnis;
   }
@@ -100,18 +100,15 @@ export class Summary {
   }
 
   zuruk() {
-    this.router.navigate(['/ausgaben'],{
-      state: {
-        gruppenName: this.gruppenName,
-        teilnahmer: this.teilnahmer,
-        ausgaben: this.ausgaben,
-      },
-    });
+    this.router.navigate(['/ausgaben']);
   }
 
   weiter() {
-    this.router.navigate(['/'],{
-    
-    })
+
+    localStorage.removeItem('gruppenName');
+    localStorage.removeItem('teilnahmer');
+    localStorage.removeItem('ausgaben');
+
+    this.router.navigate(['/']);
   }
 }
