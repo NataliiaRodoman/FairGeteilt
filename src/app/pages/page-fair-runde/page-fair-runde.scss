@@ -89,6 +89,7 @@ input {
 
 .beschreibung{
   color:  $gelb;
+  font-size: 18px;
 }
 
 .hinweis {
@@ -157,5 +158,10 @@ label,h2 {
 
 h1{
   font-size: 35px;
+  color: $grun-dunkel;
+}
+
+.name {
+  font-size: 18px;
   color: $grun-dunkel;
 }

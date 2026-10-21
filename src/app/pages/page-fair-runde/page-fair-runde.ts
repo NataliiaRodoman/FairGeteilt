@@ -28,9 +28,14 @@ export class PageFairRunde {
 
     if (bereitsVorhanden) return;
 
-    this.teilnahmer = [...this.teilnahmer,{
-      id: crypto.randomUUID(),
-      name,
+     const farbIndex = this.teilnahmer.length % 5;
+
+    this.teilnahmer = [
+      ...this.teilnahmer,
+      {
+        id: crypto.randomUUID(),
+        name,
+        farbAvatar: `color-${farbIndex}`
     }];
 
     this.neuerName ='';

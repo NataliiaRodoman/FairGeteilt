@@ -1,0 +1,62 @@
+<div class="page-container">
+    <h1>Alles auf einen Blick</h1>
+    <p class="beschreibung">Hier seht ihr eure gemeisamen Ausgaben und die Abrechnung</p>
+    <section class="karte">
+        <h2>Gesamtausgaben</h2>
+        <strong>{{gesamt.toFixed(2)}} €</strong>
+    </section>   
+
+    <section class="karte">
+        <h2>Abrechnung</h2>
+         <p>Gesamtausgaben: <strong>{{gesamt.toFixed(2)}} €</strong></p>
+         <p>Anteil pro Person: <strong>{{anteilProPerson.toFixed(2)}} €</strong></p>
+
+        @if (teilnahmer.length === 0) {
+            <p class="hinweis">Keine Teilnehmer vorhanden!</p>
+        } @else if (ausgaben.length === 0){
+            <p class="hinweis">Fügt zuerst Ausgaben hinzu, damit wir abrechnen können!</p>
+        } @else if (abrechnung.length === 0){
+            <p class="beschreibung">Alles ausgeglichen! Niemand muss etwas zurückzahlen.</p>
+        } @else {
+            <h3>Wer zahlt wem?</h3>
+          
+            @for (zahlung of abrechnung; track $index) {
+                <div class="ausgabe">
+                    <div class="party">
+                    <span class="avatar" [ngClass]="farbeVon(zahlung.von)">
+                         {{ zahlung.von.charAt(0).toLocaleUpperCase() }}
+                    </span>
+                    <strong class="name">{{ zahlung.von }}</strong>
+                    </div>
+
+                    <div class="transfer-info">
+                    <p class="beschreibung">zahlt an</p>
+                    <div class="arrow">➔</div>
+                    <strong class="betrag">{{ zahlung.bertrag.toFixed(2) }} €</strong>
+                    </div>
+
+                    <div class="party">
+                    <span class="avatar" [ngClass]="farbeVon(zahlung.an)">
+                            {{ zahlung.an.charAt(0).toLocaleUpperCase() }}
+                    </span>
+                    <strong class="name">{{ zahlung.an }}</strong>
+                    </div>
+                </div>
+            }
+        }
+    </section>
+
+    <div class="action-area">
+        <app-custom-button-component 
+          [label]="'← Zurück'" 
+          (btnClick)="zuruk()"
+        >
+        </app-custom-button-component> 
+
+       <app-custom-button-component 
+         [label]="'Neue Runde'"
+         (btnClick)="weiter()"
+        >
+        </app-custom-button-component>
+    </div>
+</div>

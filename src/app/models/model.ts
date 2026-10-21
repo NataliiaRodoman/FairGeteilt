@@ -3,7 +3,7 @@ export interface FairRunde {
     eventName: string;
     teilnehmer: number[];
     currency: string;
-
+    farbeAvatar: string;
 }
 
 export interface Person {
