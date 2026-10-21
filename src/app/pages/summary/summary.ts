@@ -40,7 +40,7 @@ export class Summary {
     if (anzahl < 2 || this.ausgaben.length === 0){
       return [];
     }
-    
+
     const gesamtCent = this.ausgaben.reduce(
       (summe,ausgabe) => summe + Math.round(Number(ausgabe.betrag)*100),
       0,
@@ -114,3 +114,102 @@ export class Summary {
     this.router.navigate(['/']);
   }
 }
+// export class Summary {
+//   private router = inject(Router);
+  
+//   // Інжектуємо Стор
+//   readonly store = inject(FairRundeStore);
+
+//   // Обчислюємо загальну суму реактивно через computed
+//   readonly gesamt = computed(() => {
+//     const cent = this.store.ausgaben().reduce(
+//       (summe, ausgabe) => summe + Math.round(Number(ausgabe.betrag) * 100),
+//       0
+//     );
+//     return cent / 100;
+//   });
+
+//   // Обчислюємо частку на людину реактивно
+//   readonly anteilProPerson = computed(() => {
+//     const anzahl = this.store.teilnahmer().length;
+//     return anzahl > 0 ? this.gesamt() / anzahl : 0;
+//   });
+
+//   // Перетворюємо твій оригінальний алгоритм розрахунку боргів на реактивний computed сигнал
+//   readonly abrechnung = computed(() => {
+//     const teilnahmerList = this.store.teilnahmer();
+//     const ausgabenList = this.store.ausgaben();
+//     const anzahl = teilnahmerList.length;
+
+//     if (anzahl < 2 || ausgabenList.length === 0) {
+//       return [];
+//     }
+    
+//     const gesamtCent = ausgabenList.reduce(
+//       (summe, ausgabe) => summe + Math.round(Number(ausgabe.betrag) * 100),
+//       0
+//     );
+//     const grundAnteil = Math.floor(gesamtCent / anzahl);
+//     const restCent = gesamtCent % anzahl;
+//     const salden = new Map<string, number>();
+
+//     teilnahmerList.forEach((person, index) => {
+//       const anteil = grundAnteil + (index < restCent ? 1 : 0);
+//       salden.set(person.id, -anteil);
+//     });
+
+//     for (const ausgabe of ausgabenList) {
+//       const payer = salden.get(ausgabe.bezahltVon);
+//       if (payer === undefined) continue;
+//       const betragCent = Math.round(Number(ausgabe.betrag) * 100);
+//       salden.set(ausgabe.bezahltVon, payer + betragCent);
+//     }
+
+//     const schuldner = [...salden.entries()]
+//       .filter(([, saldo]) => saldo < 0)
+//       .map(([id, saldo]) => ({ id, cent: -saldo }));
+
+//     const glaeubiger = [...salden.entries()]
+//       .filter(([, saldo]) => saldo > 0)
+//       .map(([id, saldo]) => ({ id, cent: saldo }));
+
+//     const ergebnis: { von: string; an: string; bertrag: number }[] = [];
+    
+//     let i = 0;
+//     let j = 0;
+
+//     while (i < schuldner.length && j < glaeubiger.length) {
+//       const cent = Math.min(schuldner[i].cent, glaeubiger[j].cent);
+
+//       if (cent > 0) {
+//         ergebnis.push({
+//           von: this.nameVon(schuldner[i].id),
+//           an: this.nameVon(glaeubiger[j].id),
+//           bertrag: cent / 100,
+//         });
+//       }
+
+//       schuldner[i].cent -= cent;
+//       glaeubiger[j].cent -= cent;
+
+//       if (schuldner[i].cent === 0) i++;
+//       if (glaeubiger[j].cent === 0) j++; // Робоче виправлення j++ залишається тут
+//     }
+//     return ergebnis;
+//   });
+
+//   nameVon(id: string): string {
+//     const person = this.store.teilnahmer().find((p) => p.id === id);
+//     return person ? person.name : 'Unbekannt';
+//   }
+
+//   zuruk() {
+//     this.router.navigate(['/ausgaben']);
+//   }
+
+//   weiter() {
+//     // Просто викликаємо метод очищення Стору, він сам видалить все з LocalStorage
+//     this.store.rundeZuruecksetzen();
+//     this.router.navigate(['/']);
+//   }
+// }

@@ -36,16 +36,16 @@
       </app-custom-button-component>
     </div>
 
-    @if (teilnahmer.length < 2) {
+    @if (store.teilnahmer().length < 2) {
       <p class="hinweis">Fügt mindestens zwei Personen hinzu!</p>
     }
 
     <div class="personen">
-      @for (person of teilnahmer; track person.id; let i = $index) {
+      @for (person of store.teilnahmer(); track person.id; let i = $index) {
         <div class="person">
           <avatar-component class="avatar"
             [name]="person.name"
-            [teilnahmer]="teilnahmer"
+            [teilnahmer]="store.teilnahmer()"
           >
           </avatar-component>
   
@@ -65,7 +65,7 @@
   <div class="action-area">
     <app-custom-button-component 
       [label]="'FairRunde anlegen'" 
-      [disabled]="gruppenName.length === 0 || teilnahmer.length < 2"
+      [disabled]="gruppenName.length === 0 || store.teilnahmer().length < 2"
       (btnClick)="weiter()"
     >
     </app-custom-button-component>

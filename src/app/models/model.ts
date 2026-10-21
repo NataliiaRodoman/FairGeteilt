@@ -19,3 +19,9 @@ export interface Ausgabe {
     betrag: number;
     bezahltVon: string;
 }
+
+export interface FairRundeState {
+  gruppenName: string;
+  teilnahmer: Person[];
+  ausgaben: Ausgabe[];
+}
