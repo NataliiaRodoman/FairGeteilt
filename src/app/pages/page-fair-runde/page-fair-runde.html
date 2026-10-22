@@ -1,10 +1,5 @@
 <div class="page-container">
-  <div class="logo-area">
-    <a href="#" class="logo">
-        <img src="logo.png" alt="FairRunde" class="logo-image">
-    </a>
-     <div class="image"><img src="farbe.png" alt="FairRunde"></div>
-  </div>
+  <app-logo></app-logo>
 
   <div class="form-container">
     <h1>Erstellt eure Gruppe</h1>
@@ -32,7 +27,7 @@
         placeholder="Name eingeben"
         (keyup.enter)="personHinzufuegen()"
       />
-      
+
       <app-custom-button-component 
         [label]="'+ Person hinzufügen'" 
         (btnClick)="personHinzufuegen()">
@@ -57,7 +52,7 @@
           <app-custom-button-component
             [label]="'x'"
             buttonClass="entfernen"
-            (btnClick)="personEntvernen(person.id)"
+            (btnClick)="personEntfernen(person.id)"
           >
           </app-custom-button-component>
         </div>

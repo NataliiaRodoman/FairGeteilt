@@ -1,4 +1,4 @@
-import { Component, computed, input, Input } from '@angular/core';
+import { Component, computed, input} from '@angular/core';
 import { Person } from '../../models/model';
 import { CommonModule } from '@angular/common';
 

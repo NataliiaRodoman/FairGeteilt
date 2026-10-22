@@ -5,9 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../../components/custom-button/custom-button.component/custom-button.component';
 import { Avatar } from '../../components/avatar/avatar';
 import { FairRundeStore } from '../../store/fair-runde.store';
+import { Logo } from '../../components/logo/logo';
 
 @Component({
-  imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar],
+  imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar, Logo],
   selector: 'app-page-ausgaben',
   styleUrl: './page-ausgaben.scss',
   templateUrl: './page-ausgaben.html',
@@ -15,15 +16,27 @@ import { FairRundeStore } from '../../store/fair-runde.store';
 
 export class PageAusgaben {
   private router = inject(Router);
-
   readonly store = inject(FairRundeStore);
   
   beschreibung = '';
   betrag: number | null = null;
-  bezahltVon = this.store.teilnahmer()[0]?.id ?? '';
+  private _bezahltVon = '';
 
-  get gesamt(): number {
-    return this.store.ausgaben().reduce((summe,ausgabe) => summe + ausgabe.betrag, 0);
+  get bezahltVon(): string{
+    if (!this._bezahltVon && this.store.teilnahmer().length > 0) {
+      return this.store.teilnahmer()[0].id;
+    }
+    return this._bezahltVon;
+  } 
+
+  set bezahltVon(value: string) {
+    this._bezahltVon = value;
+  }
+
+  nameVon(id:string): string {
+    const person = this.store.teilnahmer().find((p) => p.id === id);
+
+    return person ? person.name : 'Unbekannt';
   }
 
   ausgabeHinzufuegen() {
@@ -35,18 +48,12 @@ export class PageAusgaben {
     }
     
     this.store.ausgabeHinzufuegen(text, summe, this.bezahltVon);
-
-
     this.beschreibung = '';
     this.betrag = null;
   }
 
-  nameVon(id:string): string {
-    return this.store.teilnahmer().find((person) => person.id === id)?.name ?? 'Unbekannt';
-  }
-
   ausgabeEntfernen(id: string) {
-    this.store.ausgabeEntfernen(id);
+    this.store.entfernenById('ausgaben', id);
   }
 
   zuruk() {

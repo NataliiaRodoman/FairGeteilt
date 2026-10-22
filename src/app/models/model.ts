@@ -3,14 +3,12 @@ export interface FairRunde {
     eventName: string;
     teilnehmer: number[];
     currency: string;
-    farbeAvatar: string;
 }
 
 export interface Person {
     id: string;
     name: string;
     farbAvatar?: string;
-    mailAdresse?: string;
 }
 
 export interface Ausgabe {

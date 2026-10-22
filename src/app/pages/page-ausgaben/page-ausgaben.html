@@ -1,4 +1,6 @@
 <div class="page-container">
+    <app-logo></app-logo>
+
     <h1>Erfasst eure Ausgaben</h1>
     <p class="beschreibung">
         Tragt eure gemeinsamen Ausgaben ein und wählt aus, wer bezahlt hat.
@@ -65,7 +67,7 @@
 
                 <strong>{{nameVon(ausgabe.bezahltVon)}}</strong>
                 <strong>{{ausgabe.betrag.toFixed(2)}} €</strong>
-                
+
                 <app-custom-button-component
                 [label]="'x'"
                 buttonClass="entfernen"
@@ -78,7 +80,7 @@
 
     <div class="summe">
         <span>Gesamtausgaben</span>
-        <strong>{{gesamt.toFixed(2)}} €</strong>
+        <strong>{{store.gesamt().toFixed(2)}} €</strong>
     </div>
 
     <div class="action-area">

@@ -1,23 +1,19 @@
 <div class="page-container">
-<div class="logo-area">
-    <a href="#" class="logo">
-        <img src="logo.png" alt="FairRunde" class="logo-image">
-    </a>
-     <div class="image"><img src="farbe.png" alt="FairRunde"></div>
-</div>
-<div class="content-area">
-    <h2>Kleine Ausgaben.</h2>
-    <h1>Große Momente. ♡</h1>
-    <p>Einfaches Aufteilen von gemeinsamen Ausgaben</p>
-    <div class="image"><img src="freunde3.png" alt="FairRunde"></div>
-</div>
+    <app-logo></app-logo>
+    
+    <div class="content-area">
+        <h1>Große Momente. ♡</h1>
+        <h2>Kleine Ausgaben.</h2>
+        <p>Einfaches Aufteilen von gemeinsamen Ausgaben</p>
+        
+        <div class="image"><img src="freunde3.png" alt="FairRunde"></div>
+    </div>
 
-
-<div class="action-area">
-    <app-custom-button-component 
-    [label]="'Runde starten'"
-    (btnClick)="neueRundeStarten()"
-    >
-    </app-custom-button-component>
-</div>
+    <div class="action-area">
+        <app-custom-button-component 
+        [label]="'Runde starten'"
+        (btnClick)="neueRundeStarten()"
+        >
+        </app-custom-button-component>
+    </div>
 </div>

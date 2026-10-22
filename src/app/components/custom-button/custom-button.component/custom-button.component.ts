@@ -11,7 +11,6 @@ export class CustomButtonComponent {
   readonly label = input<string>('');
   readonly disabled = input<boolean>(false);
   readonly buttonClass = input<string>('custom-btn');
-
   readonly btnClick = output<void>();
 
   onClick() {

@@ -5,100 +5,19 @@ import { CustomButtonComponent } from '../../components/custom-button/custom-but
 import { Router } from '@angular/router';
 import { Avatar } from '../../components/avatar/avatar';
 import { FairRundeStore } from '../../store/fair-runde.store';
+import { Logo } from '../../components/logo/logo';
 
 @Component({
-  imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar],
+  imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar, Logo],
   selector: 'app-summary',
   styleUrl: './summary.scss',
   templateUrl: './summary.html',
 })
+
 export class Summary {
 
   private router = inject(Router);
   readonly store = inject(FairRundeStore);
-
-  readonly gesamt = computed(()=>{
-    const cent = this.store.ausgaben().reduce(
-      (summe,ausgabe) => summe + Math.round(Number(ausgabe.betrag)*100),
-      0,
-    );
-    return cent / 100;
-  });
-
-  readonly anteilProPerson = computed(()=>{
-    return this.store.teilnahmer().length > 0
-      ? this.gesamt() / this.store.teilnahmer().length
-      : 0;
-  });
-
-  readonly abrechnung = computed(()=>{
-    const anzahl = this.store.teilnahmer().length;
-
-    if (anzahl < 2 || this.store.ausgaben().length === 0){
-      return [];
-    };
-  
-    const gesamtCent = this.store.ausgaben().reduce(
-      (summe,ausgabe) => summe + Math.round(Number(ausgabe.betrag)*100),
-      0,
-    );
-    const grundAnteil=Math.floor(gesamtCent/anzahl);
-    const restCent = gesamtCent % anzahl;
-    const salden = new Map<string,number>();
-
-    this.store.teilnahmer().forEach((person,index) => {
-      const anteil = grundAnteil + (index < restCent ? 1:0);
-
-      salden.set(person.id,-anteil);
-    })
-
-    for (const ausgabe of this.store.ausgaben()) {
-      const payer = salden.get(ausgabe.bezahltVon);
-
-      if (payer === undefined) continue;
-      const betragCent = Math.round(Number(ausgabe.betrag)*100);
-
-      salden.set(ausgabe.bezahltVon, payer + betragCent);
-    }
-
-    const schuldner = [...salden.entries()]
-    .filter(([,saldo])=> saldo < 0)
-    .map(([id,saldo]) =>({id, cent: -saldo}));
-
-    const glaeubiger = [...salden.entries()]
-    .filter(([,saldo])=> saldo > 0)
-    .map(([id,saldo]) =>({id, cent:  saldo}));
-
-    const ergebnis: { von: string, an:string, bertrag: number}[] = [];
-    
-    let i=0;
-    let j=0;
-
-    while (i<schuldner.length && j < glaeubiger.length) {
-      const cent = Math.min(schuldner[i].cent, glaeubiger[j].cent);
-
-      if (cent>0) {
-        ergebnis.push({
-          von: this.nameVon(schuldner[i].id),
-          an: this.nameVon(glaeubiger[j].id),
-          bertrag: cent / 100,
-        });
-      }
-
-      schuldner[i].cent -= cent;
-      glaeubiger[j].cent -= cent;
-
-      if (schuldner[i].cent === 0) i++;
-      if (glaeubiger[j].cent === 0) j++;
-    }
-    return ergebnis;
-  });
-  
-
-  nameVon(id: string): string{
-    const person = this.store.teilnahmer().find((p)=> p.id === id);
-    return person ? person.name : 'Unbekannt';
-  }
 
   zuruk() {
     this.router.navigate(['/ausgaben']);

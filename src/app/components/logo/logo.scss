@@ -1,0 +1,22 @@
+
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  
+  .logo-image {
+    height: 80px;          
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  }
+}
+
+.image {
+  display: flex;
+  padding: 10px;
+  height: 114px;
+  img {
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  }
+}

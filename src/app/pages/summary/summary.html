@@ -1,26 +1,29 @@
 <div class="page-container">
+    <app-logo></app-logo>
+
     <h1>Alles auf einen Blick</h1>
     <p class="beschreibung">Hier seht ihr eure gemeisamen Ausgaben und die Abrechnung</p>
+
     <section class="karte">
         <h2>Gesamtausgaben</h2>
-        <strong>{{gesamt().toFixed(2)}} €</strong>
+        <strong>{{store.gesamt().toFixed(2)}} €</strong>
     </section>   
 
     <section class="karte">
         <h2>Abrechnung</h2>
-         <p>Gesamtausgaben: <strong>{{gesamt().toFixed(2)}} €</strong></p>
-         <p>Anteil pro Person: <strong>{{anteilProPerson().toFixed(2)}} €</strong></p>
+         <p>Gesamtausgaben: <strong>{{store.gesamt().toFixed(2)}} €</strong></p>
+         <p>Anteil pro Person: <strong>{{store.anteilProPerson().toFixed(2)}} €</strong></p>
 
         @if (store.teilnahmer().length === 0) {
             <p class="hinweis">Keine Teilnehmer vorhanden!</p>
         } @else if (store.ausgaben().length === 0){
             <p class="hinweis">Fügt zuerst Ausgaben hinzu, damit wir abrechnen können!</p>
-        } @else if (abrechnung().length === 0){
+        } @else if (store.abrechnung().length === 0){
             <p class="beschreibung">Alles ausgeglichen! Niemand muss etwas zurückzahlen.</p>
         } @else {
             <h3>Wer zahlt wem?</h3>
           
-            @for (zahlung of abrechnung(); track $index) {
+            @for (zahlung of store.abrechnung(); track $index) {
                 <div class="ausgabe">
                     <div class="party">
                         <avatar-component class="avatar"
@@ -28,22 +31,25 @@
                             [teilnahmer]="store.teilnahmer()"
                         >
                         </avatar-component>
-                    <strong class="name">{{ zahlung.von }}</strong>
+
+                        <strong class="name">{{ zahlung.von }}</strong>
                     </div>
 
                     <div class="transfer-info">
-                    <p class="beschreibung">zahlt an</p>
-                    <div class="arrow">➔</div>
-                    <strong class="betrag">{{ zahlung.bertrag.toFixed(2) }} €</strong>
+                        <p class="beschreibung">zahlt an</p>
+                        <div class="arrow">➔</div>
+                        <strong class="betrag">{{ zahlung.bertrag.toFixed(2) }} €</strong>
                     </div>
 
                     <div class="party">
-                    <avatar-component class="avatar"
-                        [name]="zahlung.an"
-                        [teilnahmer]="store.teilnahmer()"
-                    >
-                    </avatar-component>
-                    <strong class="name">{{ zahlung.an }}</strong>
+
+                        <avatar-component class="avatar"
+                            [name]="zahlung.an"
+                            [teilnahmer]="store.teilnahmer()"
+                        >
+                        </avatar-component>
+
+                        <strong class="name">{{ zahlung.an }}</strong>
                     </div>
                 </div>
             }

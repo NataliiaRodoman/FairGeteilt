@@ -1,13 +1,7 @@
-import { signalStore, withState, withMethods, withHooks, patchState } from "@ngrx/signals";
+import { signalStore, withState, withMethods, withHooks, patchState, withComputed } from "@ngrx/signals";
 import { FairRundeState } from "../models/model";
 import { isPlatformBrowser } from "@angular/common";
-import { inject, PLATFORM_ID } from "@angular/core";
-
-// const initialState: FairRundeState = {
-//   gruppenName: localStorage.getItem('gruppenName') ?? '',
-//   teilnahmer: JSON.parse(localStorage.getItem('teilnahmer') ?? '[]'),
-//   ausgaben: JSON.parse(localStorage.getItem('ausgaben') ?? '[]'),
-// };
+import { computed, inject, PLATFORM_ID } from "@angular/core";
 
 const initialState: FairRundeState = {
   gruppenName: '',
@@ -17,7 +11,100 @@ const initialState: FairRundeState = {
 
 export const FairRundeStore = signalStore(
     { providedIn: 'root' }, 
+
     withState(initialState),
+
+    withComputed((store) => {
+        const nameVon = (id: string): string => {
+            const person = store.teilnahmer().find((p)=> p.id === id);
+
+            return person ? person.name : 'Unbekannt';
+        }
+
+        const gesamt = computed(() => {
+            const cent = store.ausgaben().reduce(
+                (summe,ausgabe) => summe + Math.round(Number(ausgabe.betrag)*100),
+                0,
+            );
+            return cent / 100;
+        });
+
+        const anteilProPerson = computed(() => {
+            return store.teilnahmer().length > 0
+                ? gesamt() / store.teilnahmer().length
+                : 0;
+        });
+
+        const abrechnung = computed(() => {
+            const anzahl = store.teilnahmer().length;
+
+            if (anzahl < 2 || store.ausgaben().length === 0){
+                return [];
+            };
+            
+            const gesamtCent = store.ausgaben().reduce(
+                (summe,ausgabe) => summe + Math.round(Number(ausgabe.betrag)*100),
+                0,
+            );
+
+            const grundAnteil=Math.floor(gesamtCent/anzahl);
+            const restCent = gesamtCent % anzahl;
+            const salden = new Map<string,number>();
+
+            store.teilnahmer().forEach((person,index) => {
+                const anteil = grundAnteil + (index < restCent ? 1:0);
+
+                salden.set(person.id,-anteil);
+            })
+
+            for (const ausgabe of store.ausgaben()) {
+                const payer = salden.get(ausgabe.bezahltVon);
+
+                if (payer === undefined) continue;
+                const betragCent = Math.round(Number(ausgabe.betrag)*100);
+
+                salden.set(ausgabe.bezahltVon, payer + betragCent);
+            }
+
+            const schuldner = [...salden.entries()]
+                .filter(([,saldo])=> saldo < 0)
+                .map(([id,saldo]) =>({id, cent: -saldo}));
+
+            const glaeubiger = [...salden.entries()]
+                .filter(([,saldo])=> saldo > 0)
+                .map(([id,saldo]) =>({id, cent:  saldo}));
+
+            const ergebnis: { von: string, an:string, bertrag: number}[] = [];
+                
+            let i=0;
+            let j=0;
+
+            while (i < schuldner.length && j < glaeubiger.length) {
+                const cent = Math.min(schuldner[i].cent, glaeubiger[j].cent);
+
+                if (cent>0) {
+                    ergebnis.push({
+                        von: nameVon(schuldner[i].id),
+                        an: nameVon(glaeubiger[j].id),
+                        bertrag: cent / 100,
+                    });
+                }
+
+                schuldner[i].cent -= cent;
+                glaeubiger[j].cent -= cent;
+
+                if (schuldner[i].cent === 0) i++;
+                if (glaeubiger[j].cent === 0) j++;
+                }
+                return ergebnis;
+            });
+
+            return {
+                gesamt, 
+                anteilProPerson, 
+                abrechnung
+            };
+    }),
 
     withMethods((store) => ({
         _loadFormStorage(platformId: Object): void {
@@ -38,6 +125,7 @@ export const FairRundeStore = signalStore(
         personHinzufuegen(name: string): void {
             const current = store.teilnahmer();
             const bereitsVorhanden = current.some(p => p.name.toLowerCase() === name.toLowerCase());
+
             if (bereitsVorhanden) return;
 
             const farbIndex = current.length % 5;
@@ -54,10 +142,12 @@ export const FairRundeStore = signalStore(
             localStorage.setItem('teilnahmer', JSON.stringify(updated));
         },
 
-        personEntvernen(id: string): void {
-           const updated = store.teilnahmer().filter(p => p.id !== id);
-           patchState(store, { teilnahmer: updated });
-           localStorage.setItem('teilnahmer', JSON.stringify(updated));
+        entfernenById(key: 'teilnahmer' | 'ausgaben', id: string): void {
+           const currentArray = store[key]() as any[];
+           const updated = currentArray.filter(item => item.id !== id);
+
+           patchState(store, { [key]: updated });
+           localStorage.setItem(key, JSON.stringify(updated));
         },
 
         ausgabeHinzufuegen(beschreibung: string, betrag: number, bezahltVon: string): void {
@@ -70,18 +160,14 @@ export const FairRundeStore = signalStore(
                 bezahltVon
                 }
             ];
-            patchState(store, { ausgaben: updated });
-            localStorage.setItem('ausgaben', JSON.stringify(updated));
-        },
 
-        ausgabeEntfernen(id: string): void {
-            const updated = store.ausgaben().filter(a => a.id !== id);
             patchState(store, { ausgaben: updated });
             localStorage.setItem('ausgaben', JSON.stringify(updated));
         },
 
         rundeZuruecksetzen(): void {
             patchState(store, { gruppenName: '', teilnahmer: [], ausgaben: [] });
+
             localStorage.removeItem('gruppenName');
             localStorage.removeItem('teilnahmer');
             localStorage.removeItem('ausgaben');

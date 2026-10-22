@@ -6,33 +6,13 @@
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;        
-  padding: 40px 24px;
+  padding: 30px 0;
   box-sizing: border-box;
   background-color: $gelb-hell;
   font-family: system-ui, -apple-system, sans-serif;
   text-align: center;
 }
-.logo-area {
-  display: flex;
-  flex-direction: column;
-  
-  .logo-image {
-    height: 80px;          
-    object-fit: contain;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  }
-}
 
-.image {
-  display: flex;
-  padding: 10px;
-
-  img {
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  }
-}
 .form-container {
   width: 100%;
   max-width: 500px;
@@ -43,6 +23,7 @@
   box-sizing: border-box;
   margin-top: 20px;
 }
+
 .content-area {              
   display: flex;
   flex-direction: column;
@@ -89,7 +70,7 @@ input {
 
 .beschreibung{
   color:  $gelb;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .hinweis {
@@ -97,9 +78,9 @@ input {
   font-size: 14px;
 }
 
-label,h2 {
+label, h2 {
   display: block;
-  margin-top: 28px;
+  margin-top: 10px;
   margin-bottom: 10px;
   font-size: 23px;
   font-weight: 400;
