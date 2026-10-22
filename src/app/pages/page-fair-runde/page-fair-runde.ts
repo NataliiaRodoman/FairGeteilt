@@ -17,7 +17,6 @@ import { FairRundeStore } from '../../store/fair-runde.store';
 
 export class PageFairRunde {
   private router = inject(Router);
-
   readonly store = inject(FairRundeStore);
 
   neuerName: string = '';
@@ -34,6 +33,10 @@ export class PageFairRunde {
     const name = this.neuerName.trim();
 
     if (!name) return;
+    
+    const bereitsVorhanden = this.store.teilnahmer().some((person)=> person.name.toLocaleLowerCase() === name.toLocaleLowerCase(),);
+
+   if (bereitsVorhanden) return;
 
     this.store.personHinzufuegen(name);
     this.neuerName ='';
@@ -43,39 +46,7 @@ export class PageFairRunde {
     this.store.personEntvernen(id);
   }
 
-  // personHinzufuegen() {
-  //   const name = this.neuerName.trim();
-
-  //   if (!name) return;
-
-  //   const bereitsVorhanden = this.teilnahmer.some((person)=> person.name.toLocaleLowerCase() === name.toLocaleLowerCase(),);
-
-  //   if (bereitsVorhanden) return;
-
-  //   const farbIndex = this.teilnahmer.length % 5;
-
-  //   this.teilnahmer = [
-  //     ...this.teilnahmer,
-  //     {
-  //       id: crypto.randomUUID(),
-  //       name,
-  //       farbAvatar: `color-${farbIndex}`
-  //   }];
-
-  //   localStorage.setItem('teilnahmer', JSON.stringify(this.teilnahmer));
-  //   localStorage.setItem('gruppenName', this.gruppenName);
-
-  //   this.neuerName ='';
-  // }
-
-  // personEntvernen(id: string) {
-  //   this.teilnahmer = this.teilnahmer.filter((person => person.id !== id));
-
-  //   localStorage.setItem('teilnahmer',JSON.stringify(this.teilnahmer));
-  // }
-
   weiter(){
-    //localStorage.setItem('gruppenName', this.gruppenName);
     this.router.navigate(['/ausgaben']);
   }
 }

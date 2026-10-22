@@ -18,9 +18,11 @@
       [(ngModel)]="gruppenName" 
       placeholder="Wochenendtrip, Abendessen..."
     />
+
     @if (gruppenName.length === 0) {
       <p class="hinweis">Noch keine Gruppenname hinzügefügt!</p>
     }
+
     <h2>Wer ist dabei?</h2>
   
     <div class="eingabe">
@@ -30,6 +32,7 @@
         placeholder="Name eingeben"
         (keyup.enter)="personHinzufuegen()"
       />
+      
       <app-custom-button-component 
         [label]="'+ Person hinzufügen'" 
         (btnClick)="personHinzufuegen()">

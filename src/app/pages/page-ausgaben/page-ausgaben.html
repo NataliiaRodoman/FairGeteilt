@@ -14,6 +14,7 @@
         @if (beschreibung.length === 0) {
             <p class="hinweis">Noch keine Beschreibung hinzügefügt!</p>
         }
+
         <label for="betrag">Betrag €</label>
         <input id="betrag"
         [(ngModel)]="betrag"
@@ -24,16 +25,18 @@
         @if (betrag === null || betrag <= 0 ) {
             <p class="hinweis">Noch kein Betrag hinzügefügt!</p>
         }
+        
         <label for="bezahltVon">Wer hat bezahlt?</label>
         <select 
             id="bezahltVon"
             [(ngModel)]="bezahltVon">
-            @for (person of teilnahmer; track person.id) {
+            @for (person of store.teilnahmer(); track person.id) {
               <option [value]="person.id">
                   {{person.name}}
               </option>
             }
         </select>
+
         <div class="action-area">
            <app-custom-button-component 
             [label]="'+ Ausgabe hinzufügen'" 
@@ -46,20 +49,23 @@
     <section class="liste">
         <h2>Alle Ausgaben</h2>
         
-        @if (ausgaben.length === 0) {
+        @if (store.ausgaben().length === 0) {
             <p class="hinweis">Noch keine Ausgaben hinzügefügt!</p>
         }
-        @for(ausgabe of ausgaben; track ausgabe.id){
+        @for(ausgabe of store.ausgaben(); track ausgabe.id){
             <div class="ausgabe">
                 <strong>{{ausgabe.beschreibung}}</strong>
                 <p>Bezahlt von: </p>
+
                 <avatar-component class="avatar"
                     [name]="nameVon(ausgabe.bezahltVon)"
-                    [teilnahmer]="teilnahmer"
+                    [teilnahmer]="store.teilnahmer()"
                 >
                 </avatar-component>
+
                 <strong>{{nameVon(ausgabe.bezahltVon)}}</strong>
                 <strong>{{ausgabe.betrag.toFixed(2)}} €</strong>
+                
                 <app-custom-button-component
                 [label]="'x'"
                 buttonClass="entfernen"

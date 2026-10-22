@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Ausgabe, Person } from '../../models/model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../../components/custom-button/custom-button.component/custom-button.component';

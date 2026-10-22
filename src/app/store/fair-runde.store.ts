@@ -1,10 +1,18 @@
 import { signalStore, withState, withMethods, withHooks, patchState } from "@ngrx/signals";
-import { Ausgabe, FairRundeState, Person } from "../models/model";
+import { FairRundeState } from "../models/model";
+import { isPlatformBrowser } from "@angular/common";
+import { inject, PLATFORM_ID } from "@angular/core";
+
+// const initialState: FairRundeState = {
+//   gruppenName: localStorage.getItem('gruppenName') ?? '',
+//   teilnahmer: JSON.parse(localStorage.getItem('teilnahmer') ?? '[]'),
+//   ausgaben: JSON.parse(localStorage.getItem('ausgaben') ?? '[]'),
+// };
 
 const initialState: FairRundeState = {
-  gruppenName: localStorage.getItem('gruppenName') ?? '',
-  teilnahmer: JSON.parse(localStorage.getItem('teilnahmer') ?? '[]'),
-  ausgaben: JSON.parse(localStorage.getItem('ausgaben') ?? '[]'),
+  gruppenName: '',
+  teilnahmer: [],
+  ausgaben: [],
 };
 
 export const FairRundeStore = signalStore(
@@ -12,6 +20,16 @@ export const FairRundeStore = signalStore(
     withState(initialState),
 
     withMethods((store) => ({
+        _loadFormStorage(platformId: Object): void {
+            if (isPlatformBrowser(platformId)) {
+                const gruppenName = localStorage.getItem('gruppenName') ?? '';
+                const teilnahmer = JSON.parse(localStorage.getItem('teilnahmer') ?? '[]');
+                const ausgaben = JSON.parse(localStorage.getItem('ausgaben') ?? '[]');
+
+                patchState(store, {gruppenName, teilnahmer,ausgaben});
+            };
+        },
+
         updateGruppenName(name: string): void{
             patchState(store, {gruppenName: name});
             localStorage.setItem('gruppenName',name);
@@ -68,5 +86,12 @@ export const FairRundeStore = signalStore(
             localStorage.removeItem('teilnahmer');
             localStorage.removeItem('ausgaben');
         }
-  }))
+    })),
+
+    withHooks({
+        onInit(store){
+            const platformId = inject(PLATFORM_ID);
+            store._loadFormStorage(platformId);
+        }
+    })
 );
