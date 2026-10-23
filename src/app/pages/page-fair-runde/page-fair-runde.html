@@ -39,7 +39,7 @@
     }
 
     <div class="personen">
-      @for (person of store.teilnahmer(); track person.id; let i = $index) {
+      @for (person of store.teilnahmer(); track person.id) {
         <div class="person">
           <avatar-component class="avatar"
             [name]="person.name"

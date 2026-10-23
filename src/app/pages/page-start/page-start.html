@@ -11,9 +11,51 @@
 
     <div class="action-area">
         <app-custom-button-component 
-        [label]="'Runde starten'"
-        (btnClick)="neueRundeStarten()"
+        [label]="'Neue Runde starten'"
+        (btnClick)="zeigeFormular.set(!zeigeFormular())"
         >
         </app-custom-button-component>
     </div>
+
+    @if (zeigeFormular()) {
+        <div class="action-area">
+            <input type="text" [(ngModel)]="neuerGruppenName" placeholder="Gruppenname"/>
+            <app-custom-button-component 
+                [label]="'Erstellen'" 
+                (btnClick)="startNeu()" 
+                [disabled]="!neuerGruppenName.trim()"
+            >Erstellen
+            </app-custom-button-component>
+        </div>
+    }
+
+   @if (store.rundenHistorie().length > 0) {
+        <div class="historie-container">
+            <h3>Alte Runden</h3>
+            <div class="runden-liste">
+                @for (runde of store.rundenHistorie(); track runde.id) {
+                        <div class="runde-item" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: white; border-radius: 20px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                        <strong class="name">{{ runde.name }}</strong>
+                        
+                        <div class="controls">
+                            <app-custom-button-component
+                                [label]="'Öffnen'"
+                                (btnClick)="alteRundeOeffnen(runde.id)">
+                            </app-custom-button-component>
+                            
+                            <app-custom-button-component
+                                [label]="'✕'"
+                                buttonClass="entfernen"
+                                (btnClick)="loescheRunde(runde.id)">
+                            </app-custom-button-component>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    } @else {
+        <div class="historie-container">
+            <p class="hinweis">Noch keine alten Runden gespeichert.</p>
+        </div>
+    }
 </div>

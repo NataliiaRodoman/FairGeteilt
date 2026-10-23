@@ -22,4 +22,5 @@ export interface FairRundeState {
   gruppenName: string;
   teilnahmer: Person[];
   ausgaben: Ausgabe[];
+  rundenHistorie: { id: string; name: string }[]; 
 }

@@ -57,10 +57,97 @@
   width: 100%;
   max-width: 320px;          
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px;
 
   app-custom-button-component {
     display: block;         
     width: 100%;
+  }
+
+    input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid $grun-hell;
+    border-radius: 20px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    background-color: $white;
+    color: $gray;
+    margin-bottom: 12px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    
+    &:focus {
+      border-color: $grun;
+    }
+  }
+}
+
+.historie-container {
+  width: 100%;
+  max-width: 320px;
+  margin-top: 25px;
+  text-align: left;
+
+  h3 {
+    font-size: 20px;
+    color: $grun-dunkel;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .runden-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .controls {
+    display: flex; 
+    align-items: 
+    center; gap: 8px;
+  }
+
+  .runde-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background-color: $white;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+
+      .status {
+        color: $grun;
+      }
+    }
+
+    .name {
+      font-size: 16px;
+      color: $grun-dunkel;
+      font-weight: 600;
+    }
+
+    .status {
+      font-size: 14px;
+      color: $grun-hell;
+      font-weight: bold;
+      transition: color 0.2s ease;
+    }
+  }
+
+  .hinweis {
+    color: $koralle;
+    font-size: 14px;
+    text-align: center;
   }
 }
 

@@ -65,7 +65,17 @@ input {
 
 .eingabe {
   display: flex;
+  align-items: center;
   gap:12px;
+  width: 100%;
+
+  input {
+    flex: 1 ;
+///
+  }
+   app-custom-button-component {
+    flex-shrink: 0; // Кнопка не стискається
+  }
 }
 
 .beschreibung{
@@ -85,6 +95,7 @@ label, h2 {
   font-size: 23px;
   font-weight: 400;
   color: $grun-dunkel;
+  text-align: left;
 }
 
 .personen {
@@ -111,6 +122,21 @@ label, h2 {
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
   }
+  
+  avatar-component {
+    flex-shrink: 0;
+  }
+
+  .name {
+    flex: 1;
+    text-align: left;
+    font-size: 18px;
+    color: $grun-dunkel;
+  }
+
+  app-custom-button-component {
+    flex-shrink: 0;
+  }
 }
 
 .navigation {
@@ -120,10 +146,5 @@ label, h2 {
 
 h1{
   font-size: 35px;
-  color: $grun-dunkel;
-}
-
-.name {
-  font-size: 18px;
   color: $grun-dunkel;
 }
