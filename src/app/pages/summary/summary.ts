@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../../components/custom-button/custom-button.component/custom-button.component';
 import { Router } from '@angular/router';
@@ -9,13 +9,13 @@ import { Logo } from '../../components/logo/logo';
 
 @Component({
   imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar, Logo],
+  standalone: true,
   selector: 'app-summary',
   styleUrl: './summary.scss',
   templateUrl: './summary.html',
 })
 
 export class Summary {
-
   private router = inject(Router);
   readonly store = inject(FairRundeStore);
 

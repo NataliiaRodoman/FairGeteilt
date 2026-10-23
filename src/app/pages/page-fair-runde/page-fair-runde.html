@@ -30,7 +30,8 @@
 
       <app-custom-button-component 
         [label]="'+ Person hinzufügen'" 
-        (btnClick)="personHinzufuegen()">
+        (btnClick)="personHinzufuegen()"
+        [disabled]="!neuerName.trim()">
       </app-custom-button-component>
     </div>
 

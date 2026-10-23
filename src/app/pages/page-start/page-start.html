@@ -34,15 +34,15 @@
             <h3>Alte Runden</h3>
             <div class="runden-liste">
                 @for (runde of store.rundenHistorie(); track runde.id) {
-                        <div class="runde-item" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: white; border-radius: 20px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                    <div class="runde-item">
                         <strong class="name">{{ runde.name }}</strong>
-                        
+                            
                         <div class="controls">
                             <app-custom-button-component
                                 [label]="'Öffnen'"
                                 (btnClick)="alteRundeOeffnen(runde.id)">
                             </app-custom-button-component>
-                            
+                                
                             <app-custom-button-component
                                 [label]="'✕'"
                                 buttonClass="entfernen"

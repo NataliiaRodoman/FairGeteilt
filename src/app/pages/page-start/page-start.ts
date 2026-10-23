@@ -5,10 +5,9 @@ import { Logo } from '../../components/logo/logo';
 import { FairRundeStore } from '../../store/fair-runde.store';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Avatar } from '../../components/avatar/avatar';
 
 @Component({
-  imports: [CustomButtonComponent, Logo, CommonModule, FormsModule, Avatar],
+  imports: [CustomButtonComponent, Logo, CommonModule, FormsModule],
   selector: 'app-page-start',
   styleUrl: './page-start.scss',
   templateUrl: './page-start.html',

@@ -13,6 +13,7 @@
         <input id="beschreibung"
         [(ngModel)]="beschreibung"
         placeholder="Abendessen...">
+
         @if (beschreibung.length === 0) {
             <p class="hinweis">Noch keine Beschreibung hinzügefügt!</p>
         }
@@ -24,6 +25,7 @@
         min="0.1"
         max="0.1"
         placeholder="0.00">
+
         @if (betrag === null || betrag <= 0 ) {
             <p class="hinweis">Noch kein Betrag hinzügefügt!</p>
         }
@@ -32,6 +34,7 @@
         <select 
             id="bezahltVon"
             [(ngModel)]="bezahltVon">
+
             @for (person of store.teilnahmer(); track person.id) {
               <option [value]="person.id">
                   {{person.name}}
@@ -41,9 +44,9 @@
 
         <div class="action-area">
            <app-custom-button-component 
-            [label]="'+ Ausgabe hinzufügen'" 
-            [disabled]="beschreibung.length === 0 || (betrag ?? 0) <= 0 "
-            (btnClick)="ausgabeHinzufuegen()">
+               [label]="'+ Ausgabe hinzufügen'" 
+               [disabled]="beschreibung.length === 0 || (betrag ?? 0) <= 0 "
+               (btnClick)="ausgabeHinzufuegen()">
           </app-custom-button-component>
         </div>
     </section>
@@ -54,6 +57,7 @@
         @if (store.ausgaben().length === 0) {
             <p class="hinweis">Noch keine Ausgaben hinzügefügt!</p>
         }
+
         @for(ausgabe of store.ausgaben(); track ausgabe.id){
             <div class="ausgabe">
                 <strong>{{ausgabe.beschreibung}}</strong>

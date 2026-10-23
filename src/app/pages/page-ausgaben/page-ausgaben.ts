@@ -9,6 +9,7 @@ import { Logo } from '../../components/logo/logo';
 
 @Component({
   imports: [CommonModule, FormsModule, CustomButtonComponent, Avatar, Logo],
+  standalone: true,
   selector: 'app-page-ausgaben',
   styleUrl: './page-ausgaben.scss',
   templateUrl: './page-ausgaben.html',
@@ -50,6 +51,7 @@ export class PageAusgaben {
     this.store.ausgabeHinzufuegen(text, summe, this.bezahltVon);
     this.beschreibung = '';
     this.betrag = null;
+    this._bezahltVon = '';
   }
 
   ausgabeEntfernen(id: string) {

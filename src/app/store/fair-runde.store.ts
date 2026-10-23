@@ -113,7 +113,8 @@ export const FairRundeStore = signalStore(
 
             if (!currentId) return;
 
-            const groupState = {gruppenName: name, teilnahmer, ausgaben, rundenHistorie: []};
+            const groupState = {gruppenName: name, teilnahmer, ausgaben};
+
             localStorage.setItem(`fair_group_${currentId}`, JSON.stringify(groupState));
 
             const historyList = JSON.parse(localStorage.getItem('fair_history_list') ?? '[]');
@@ -170,6 +171,7 @@ export const FairRundeStore = signalStore(
             alteRundeLoeschen(id: string): void {
                 if (confirm('Möchtest du diese Runde wirklich löschen?')) {
                     if (typeof window === 'undefined') return;
+                    
                     localStorage.removeItem(`fair_group_${id}`);
 
                     const historyList = JSON.parse(localStorage.getItem('fair_history_list') ?? '[]');
@@ -179,6 +181,7 @@ export const FairRundeStore = signalStore(
                     patchState(store, { rundenHistorie: updatedHistory });
                     
                     const currentActiveId = localStorage.getItem('fair_current_id');
+                    
                     if (currentActiveId === id) {
                         localStorage.removeItem('fair_current_id');
                         patchState(store, { gruppenName: '', teilnahmer: [], ausgaben: [] });

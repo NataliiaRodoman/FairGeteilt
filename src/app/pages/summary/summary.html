@@ -11,8 +11,8 @@
 
     <section class="karte">
         <h2>Abrechnung</h2>
-         <p>Gesamtausgaben: <strong>{{store.gesamt().toFixed(2)}} €</strong></p>
-         <p>Anteil pro Person: <strong>{{store.anteilProPerson().toFixed(2)}} €</strong></p>
+        <p>Gesamtausgaben: <strong>{{store.gesamt().toFixed(2)}} €</strong></p>
+        <p>Anteil pro Person: <strong>{{store.anteilProPerson().toFixed(2)}} €</strong></p>
 
         @if (store.teilnahmer().length === 0) {
             <p class="hinweis">Keine Teilnehmer vorhanden!</p>
@@ -22,7 +22,7 @@
             <p class="beschreibung">Alles ausgeglichen! Niemand muss etwas zurückzahlen.</p>
         } @else {
             <h3>Wer zahlt wem?</h3>
-          
+            
             @for (zahlung of store.abrechnung(); track $index) {
                 <div class="ausgabe">
                     <div class="party">
@@ -42,7 +42,6 @@
                     </div>
 
                     <div class="party">
-
                         <avatar-component class="avatar"
                             [name]="zahlung.an"
                             [teilnahmer]="store.teilnahmer()"

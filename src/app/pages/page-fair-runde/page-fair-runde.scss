@@ -71,10 +71,10 @@ input {
 
   input {
     flex: 1 ;
-///
   }
-   app-custom-button-component {
-    flex-shrink: 0; // Кнопка не стискається
+
+  app-custom-button-component {
+    flex-shrink: 0; 
   }
 }
 
